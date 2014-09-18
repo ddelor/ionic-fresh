@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Freshly pressed</title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+</head>
+<body ng-controller="AppCtrl">
+<!-- ng-init="refresh()" -->
+    <ion-header-bar class="bar-balanced">
+        <h1 class="title">Freshly pressed</h1>
+        <button class="button" ng-click="refresh()">
+            <i class="icon ion-refresh"></i>
+        </button>
+    </ion-header-bar>
+
+    <ion-content>
+        <ion-refresher on-refresh="refresh()"></ion-refresher>
+        <div ng-show="!posts.length">
+            <br>
+            <br>
+            <center>
+                <h1>Pull to refresh</h1>
+            </center>
+        </div>
+        <!-- <div class="loader" ng-show="!posts.length"></div> -->
+        <div class="list card" ng-repeat="p in posts">
+            <div class="item item-avatar-left">
+                <img ng-src="{{ p.author.avatar_URL }}" alt="Portrait">
+                <h2>{{ p.author.nice_name }}</h2>
+                <p>{{ p.date | date:"dd/MM/yyyy" }}</p>
+            </div>
+            <div class="item item-body">
+                <a ng-href="{{ p.URL }}" target="blank">
+                    <!-- <h1>{{ p.title }}</h1> -->
+                    <h1 ng-bind-html="p.title"></h1>
+                    <div ng-bind-html="p.excerpt"></div>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+
+</body>
+</html>
